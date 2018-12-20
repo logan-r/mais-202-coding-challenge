@@ -1,4 +1,5 @@
 import csv
+import matplotlib.pyplot as plt
 
 """
 Open a .csv file with a given file name (must have a heading row that
@@ -77,3 +78,25 @@ if __name__ == "__main__":
     purposesToAvgRateMap = averageOfOneToManyMapping(
         createPurposeToRateMapFromCsv('data.csv')
     )
+
+    # Depack mapping into two aligned lists (i.e. the i-th element of
+    # purposes is mapped to the i-th element of intRates)
+    purposes = []
+    intRates = []
+    for k, v in purposesToAvgRateMap.items():
+        purposes.append(k)
+        intRates.append(v)
+
+    # Initialize graph
+    plt.rcdefaults()
+
+    # Create bar graph of values
+    plt.bar(range(len(intRates)), intRates, width = 0.6)
+    plt.xticks(range(len(intRates)), purposes, fontsize = 'small', rotation = 90)
+    plt.title('Purpose vs Mean Interest Rate')
+    plt.xlabel('purpose')
+    plt.ylabel('mean interest rates (%)')
+    plt.tight_layout()
+
+    # Render and display the chart to the user
+    plt.show()
